@@ -1,0 +1,10 @@
+function check_all(enter) 
+{
+  check_boxes = document.getElementsByName('check');
+
+  for(var c=0, n=check_boxes.length; c<n; c++) 
+  {
+    check_boxes[c].checked = enter.checked;
+  }
+
+}
