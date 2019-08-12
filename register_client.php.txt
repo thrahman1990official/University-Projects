@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HOTEL T.R.'s INN REGISTER-CLIENT-PAGE</title>
+<link rel="stylesheet" type="text/css" href="../css/hotel_main.css">
+</head>
+
+<body background="../img/hotel_pic.jpg" style="height:750px;width:1300px;">
+<table align="center">
+
+<tr>
+<th colspan="3">
+<div class="main">
+<div class="name"><h1 align="center">REGISTER-CLIENT-PAGE</h1></div>
+</div>
+</th>
+</tr>
+
+<tr>
+<td>
+<div class="menu">
+<ul>
+<li><a href="../html/hotel_main.html">Home</a></li>
+<li><a href="_blank">Contact</a></li>
+<li><a href="_blank">Info</a></li>
+<li><a href="_blank">Help</a></li>
+</ul>
+</div>
+</td>
+
+<td>
+<?php
+require_once 'register_client_connect.php';
+$connection = new mysqli($hn, $un, $pw, $db);
+if($connection->mysqli_connect_error) die($connection->mysqli_connect_error);
+
+$statement = $connection->prepare("INSERT INTO users(firstname, lastname, email, phonenumber, password, username) VALUE(?, ?, ?, ?, ?, ?)");
+
+$firstname = get_post($connection, 'firstname');
+$lastname = get_post($connection, 'lastname');
+$email = get_post($connection, 'email');
+$phonenumber = get_post($connection, 'phonenumber');
+$password = get_post($connection, 'password');
+$username = get_post($connection, 'username');
+
+$statement->bind_param("ssssss", $firstname, $lastname, $email, $phonenumber, $password, $username);
+$statement->execute();
+
+if(!$statement->error)
+{
+echo "INSERT RECORD SUCCESS <br>";
+}
+else
+{
+echo "INSERT RECORD FAILED ".$statement->error;
+}
+mysqli_close($connect);
+
+function get_post($connection, $var)
+{
+return $connection->real_escape_String($_POST[$var]);
+}
+
+?>
+<form method="post" action="">
+First-Name: <br><input name="firstname" type="text"><br>
+Last-Nname: <br><input name="lastname" type="text"><br>
+User-Name: <br><input name="username" type="text"><br>
+Phone-Number: <br><input name="phonenumber" type="text"><br>
+User-Type: <br><select name="user_type" id="user_type">
+<?php
+$connection = new mysqli($hn, $un, $pw, $db);
+if($connect->mysqli_connect_error)die($connect->mysqli_connect_error);
+$query = "SELECT * FROM User_codes";
+$resultant = $connection->query($query);
+$total_rows = $resultant->num_rows;
+for($r = 0; $r < $total_rows; ++$r)
+{
+$resultant->data_seek($r);
+$total_rows=$resultant->fetch_array(MYSQLI_NUM);
+echo '<option value =' .$total_rows[0]. '>' .$total_rows[1]. '</option>';
+}
+$resultant->close();
+$connection->close();
+?>
+</select><br>
+E-mail: <br><input name="email" id="email" type="email"><br>
+Password: <br><input name="password" id="password" type="password"><br>
+<input type="submit" value="submit"><br>
+</form>
+</td>
+
+<td>
+<div class="q">
+<ul>
+<div class="lower_cost"><li><p>lowest cost</p></li></div>
+<div class="special_offer"><li><p>summer special offers</p></li></div>
+</ul>
+</div>
+</td>
+</tr>
+
+</table>
+
+</body>
+</html>

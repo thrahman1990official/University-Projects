@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<?php 
+echo <<<_END
+<head>
+<link rel="stylesheet" type="text/css" href="../css/table.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body background="../img/hotel_pic.jpg" style="height:750px;width:1300px;">
+_END;
+
+  require_once 'register_client_connect.php';
+  $conn = new mysqli($hn, $un, $pw, $db);
+  if ($conn->connect_error) die($conn->connect_error);
+
+  if (isset($_POST['delete']))
+  {
+  foreach($_POST['check'] as $item) 
+         {
+         $query  = "DELETE FROM client_list_for_admin WHERE date_of_birth='$item'";
+         $result = $conn->query($query);
+         if (!$result) echo "DELETE failed: $query<br>" . $conn->error . "<br><br>";
+         }
+  
+  }
+
+  if (isset($_POST['firstname']) &&
+      isset($_POST['lastname']) &&
+      isset($_POST['email']) &&
+      isset($_POST['phonenumber']) &&
+      isset($_POST['room_booked']) &&
+      isset($_POST['checkin_date']) &&
+      isset($_POST['checkout_date']) &&
+      isset($_POST['card_type']) &&
+      isset($_POST['card_number']) &&
+      isset($_POST['date_of_birth']))
+  {
+    $firstname = get_post($conn, 'firstname');
+    $lastname = get_post($conn, 'lastname');
+    $email = get_post($conn, 'email');
+    $phonenumber = get_post($conn, 'phonenumber');
+    $room_booked = get_post($conn, 'room_booked');
+    $checkin_date = get_post($conn, 'checkin_date');
+    $checkout_date = get_post($conn, 'checkout_date');
+    $card_type = get_post($conn, 'card_type');
+    $card_number = get_post($conn, 'card_number');
+    $date_of_birth = get_post($conn, 'date_of_birth');
+    $query    = "INSERT INTO client_list_for_admin VALUES" . "('$firstname', '$lastname', '$email', '$phonenumber', '$room_booked', '$checkin_date', '$checkout_date', '$card_type', '$card_number', '$date_of_birth')";
+    $result   = $conn->query($query);
+  	if (!$result) echo "INSERT failed: $query<br>" .
+      $conn->error . "<br><br>";
+  }
+
+  echo <<<_END
+  <div class="form">
+  <h1><b>DATA ENTRY FOR ADMIN</b></h1>
+  <h2><a href="../html/hotel_main.html"><b>GO BACK TO THE MAIN PAGE</b></a></h2>
+  <form action="client_data_entry_for_admin.php" method="post">
+  <pre>
+  <table align="center">
+  <tr>
+   <td>First-Name:<br> <input type="text" name="firstname"></td>
+   <td>Last-Name:<br> <input type="text" name="lastname"></td>
+   <td>Email-Address:<br> <input type="text" name="email"></td>
+   <td>Phone-Number:<br> <input type="text" name="phonenumber"></td>
+   <td>Room Booked:<br> <input type="text" name="room_booked"></td>
+   </tr>
+   <tr>
+   <td>Check-in Date:<br> <input type="text" name="checkin_date"></td>
+   <td>Check-out Date:<br> <input type="text" name="checkout_date"></td>
+   <td>Card Type:<br> <input type="text" name="card_type"></td>
+   <td>Card Number:<br> <input type="text" name="card_number"></td>
+   <td>Date-of-birth:<br> <input type="text" name="date_of_birth"></td>
+   </tr>
+   <tr>
+   <td colspan="5" align="center"><input type="submit" value="ADD RECORD"></td>
+   </tr>
+   </table>
+   </pre>
+   </form>
+   </div>
+_END;
+
+  $query  = "SELECT * FROM client_list_for_admin";
+  $result = $conn->query($query);
+  if (!$result) die ("Database access failed: " . $conn->error);
+
+  $rows = $result->num_rows;
+ 
+echo <<<_END
+<div class="form2">
+<h1 text-align="center">CLIENT LIST FOR ADMIN</h1>
+<form action="client_data_entry_for_admin.php" method="post">
+  <input name="delete" type="submit" value="DELETE RECORD">
+<table style="width:100%">
+<thead>
+  <tr>
+    <th>First-Name</th>
+    <th>Last-Name</th>
+    <th>Email</th>
+    <th>Phone-Number</th>
+    <th>Room-Booked</th>
+    <th>Checkin-Date</th>
+    <th>Checkout-Date</th>
+    <th>Card-type</th>
+    <th>Card-Number</th>
+    <th>Date-Of-Birth</th>
+    <th><input type="checkbox" id="selectAll" onclick="check_all()"></th>
+  </tr>
+</thead>
+_END;
+  for ($r = 0 ; $r < $rows ; ++$r)
+  {
+    $result->data_seek($r);
+    $row = $result->fetch_array(MYSQLI_NUM);
+    echo <<<_END
+  <pre>
+<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td>
+<td>$row[4]</td><td>$row[5]</td><td>$row[6]</td><td>$row[7]</td><td>$row[8]</td>
+<td>$row[9]</td><td><input type="checkbox"  name="check[]" value="$row[9]"></td></tr>
+  </pre> 
+_END;
+  }
+  echo <<<_END
+</table> </form>
+</div>
+_END;
+  $result->close();
+  $conn->close();
+  function get_post($conn, $var)
+  {
+    return $conn->real_escape_string($_POST[$var]);
+  }
+?>
+</body>
+</html>

@@ -1,11 +1,11 @@
 table 
 {
-border: solid 1px black;
+border: none;
 border-collapse: collapse;
 }
 th, td 
 {
-border: solid 1px black;
+border: solid 1px white;
 }
 #title
 {
@@ -27,4 +27,14 @@ td:hover
 {
 color: white;
 background-color: #722750;
+}
+.form
+{
+color: white;
+background-color: blue;
+}
+.form2
+{
+color: white;
+background-color: blue;
 }	

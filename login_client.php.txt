@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>HOTEL T.R.'s INN: LOGIN CLIENT-PAGE</title>
+<link rel="stylesheet" type="text/css" href="../css/hotel_main.css">
+</head>
+
+<body background="../img/hotel_pic.jpg" style="height:750px;width:1300px;">
+<table align="center">
+
+<tr>
+<th colspan="4">
+<div class="main">
+<div class="name"><h1 align="center">CLIENT-LOGIN-PAGE</h1></div>
+</div>
+</th>
+</tr>
+
+<tr>
+<td>
+<div class="menu">
+<ul>
+<li><a href="../html/hotel_main.html">Home</a></li>
+<li><a href="_blank">Contact</a></li>
+<li><a href="_blank">Info</a></li>
+<li><a href="_blank">Help</a></li>
+</ul>
+</div>
+</td>
+
+<td>
+<div class="login_client">
+			<h1>Login</h1>
+			<form action="authentication.php" method="post">
+				<label for="username">
+					<i class="fas fa-user"></i>
+				</label>
+				<input type="text" name="username" placeholder="Username" id="username" required>
+				<label for="password">
+					<i class="fas fa-lock"></i>
+				</label>
+				<input type="password" name="password" placeholder="Password" id="password" required>
+				<input type="submit" value="Login">
+			</form>
+</div>
+</td>
+
+<td>
+<div class="q">
+<ul>
+<div class="lower_cost"><li><p>lowest cost</p></li></div>
+<div class="special_offer"><li><p>summer special offers</p></li></div>
+</ul>
+</div>
+</td>
+</tr>
+
+</table>
+
+</body>
+</html>

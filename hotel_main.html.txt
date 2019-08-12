@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>HOTEL MANAGEMENT SYSTEM: T.R.'s INN</title>
+<link rel="stylesheet" type="text/css" href="../css/hotel_main.css">
+</head>
+
+<body background="../img/hotel_pic.jpg" style="height:750px;width:1300px;">
+<table align="center">
+
+<tr>
+<th colspan="3">
+<div class="main">
+<div class="name"><h1 align="center">HOTEL T.R.'s INN MAIN-PAGE</h1></div>
+</div>
+</th>
+</tr>
+
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+
+<td>
+<div class="menu">
+<ul>
+<li><a href="_blank">Contact</a></li>
+<li><a href="_blank">Info</a></li>
+<li><a href="_blank">Help</a></li>
+</ul>
+</div>
+</td>
+
+<td>
+<p>CLICK LINK BELOW FOR ADMIN LOGIN: </p>
+<br>
+<div class="client_login_link"><a href="../html/login_admin.php">ADMIN-LOGIN-PAGE</a></div>
+<br>
+<p>CLICK LINK BELOW FOR CLIENT LOGIN: </p>
+<br>
+<div class="client_login_link"><a href="../html/login_client.php">CLIENT-LOGIN-PAGE</a></div>
+<br>
+<p>CLICK LINK BELOW FOR CLIENT-ADMIN REGISTER: </p>
+<br>
+<div class="client_register_link"><a href="../html/register_client.php">CLIENT-REGISTER-PAGE</a></div>
+</td>
+
+<td>
+<div class="q">
+<ul>
+<div class="lower_cost"><li><p>lowest cost</p></li></div>
+<div class="special_offer"><li><p>summer special offers</p></li></div>
+</ul>
+</div>
+</td>
+</tr>
+
+</table>
+
+</body>
+</html>

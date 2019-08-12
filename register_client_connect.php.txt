@@ -1,0 +1,6 @@
+<?php
+$hn='localhost';//hostname
+$db='rahman1p_pbl';//database
+$un='rahman1p_pbl';//username
+$pw='mypassword';//password
+?>
